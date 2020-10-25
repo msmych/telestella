@@ -3,8 +3,6 @@ name: CI
 on:
   push:
     branches: [ 'feature/**' ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -22,4 +20,9 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew build
+
+      - name: Publish package
+        run: ./gradlew bot:publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         

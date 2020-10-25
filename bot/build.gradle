@@ -3,6 +3,9 @@ plugins {
     id "maven-publish"
 }
 
+group = "org.telestella"
+version = "0.0.1-SNAPSHOT"
+
 repositories {
     jcenter()
 }
@@ -20,6 +23,12 @@ test {
 }
 
 publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = "bot"
+            from components.java
+        }
+    }
     repositories {
         maven {
             name = "GitHubPackages"

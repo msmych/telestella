@@ -3,8 +3,6 @@ plugins {
     id "maven-publish"
 }
 
-artifactId = "bot"
-
 repositories {
     jcenter()
 }

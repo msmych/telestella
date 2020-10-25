@@ -8,12 +8,12 @@ repositories {
 }
 
 dependencies {
-    implementation project(":bot")
+    implementation project(":telestella-bot")
 }
 
 jar {
     manifest {
-        attributes "Main-Class": "org.telestella.sample.ciao.CiaoAppKt"
+        attributes "Main-Class": "dev.msmych.telestella.sample.ciao.CiaoAppKt"
     }
     from {
         configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }

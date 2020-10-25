@@ -21,7 +21,8 @@ test {
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        maven(MavenPublication) {
+            artifactId = "bot"
             from components.java
         }
     }

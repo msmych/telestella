@@ -1,0 +1,21 @@
+plugins {
+    id "java"
+    id "org.jetbrains.kotlin.jvm" version "$kotlinVersion"
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation project(":bot")
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "org.telestella.sample.ciao.CiaoAppKt"
+    }
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

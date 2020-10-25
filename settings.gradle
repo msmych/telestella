@@ -1,4 +1,4 @@
 rootProject.name = 'telestella'
 
-include 'bot',
+include 'telestella-bot',
         'sample'

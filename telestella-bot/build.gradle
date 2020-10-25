@@ -19,10 +19,14 @@ test {
     useJUnitPlatform()
 }
 
+java {
+    withSourcesJar()
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifactId = "bot"
+            artifactId = "telestella-bot"
             from components.java
         }
     }

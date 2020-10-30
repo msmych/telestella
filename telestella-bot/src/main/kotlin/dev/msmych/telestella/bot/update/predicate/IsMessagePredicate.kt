@@ -8,7 +8,7 @@ import dev.msmych.telestella.bot.Bot
  */
 open class IsMessagePredicate protected constructor() : UpdatePredicate {
 
-    override fun test(update: Update, bot: Bot): Boolean {
+    override fun appliesTo(update: Update, bot: Bot): Boolean {
         return update.message() != null
     }
 

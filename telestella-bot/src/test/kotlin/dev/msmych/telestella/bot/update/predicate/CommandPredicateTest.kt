@@ -2,13 +2,13 @@ package dev.msmych.telestella.bot.update.predicate
 
 import com.pengrad.telegrambot.model.Message
 import com.pengrad.telegrambot.model.Update
+import dev.msmych.telestella.bot.Bot
+import dev.msmych.telestella.bot.update.predicate.CommandPredicate.Companion.command
 import io.mockk.every
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import dev.msmych.telestella.bot.Bot
-import dev.msmych.telestella.bot.update.predicate.CommandPredicate.Companion.command
 
 internal class CommandPredicateTest {
 
@@ -29,48 +29,48 @@ internal class CommandPredicateTest {
     fun `should return true for slash-command`() {
         every { message.text() } returns "/command"
 
-        assertThat(predicate.test(update, bot)).isTrue
+        assertThat(predicate.appliesTo(update, bot)).isTrue
     }
 
     @Test
     fun `should return true for slash-command-at-bot-username`() {
         every { message.text() } returns "/command@TelestellaBot"
 
-        assertThat(predicate.test(update, bot)).isTrue
+        assertThat(predicate.appliesTo(update, bot)).isTrue
     }
 
     @Test
     fun `should return false if not slash-command`() {
         every { message.text() } returns "command"
 
-        assertThat(predicate.test(update, bot)).isFalse
+        assertThat(predicate.appliesTo(update, bot)).isFalse
     }
 
     @Test
     fun `should return false for wrong command`() {
         every { message.text() } returns "/wrong"
 
-        assertThat(predicate.test(update, bot)).isFalse
+        assertThat(predicate.appliesTo(update, bot)).isFalse
     }
 
     @Test
     fun `should trim leading slash`() {
         every { message.text() } returns "/command"
 
-        assertThat(command("/command").test(update, bot)).isTrue
+        assertThat(command("/command").appliesTo(update, bot)).isTrue
     }
 
     @Test
     fun `should return true if starts with slash-command`() {
         every { message.text() } returns "/command A"
 
-        assertThat(predicate.test(update, bot)).isTrue
+        assertThat(predicate.appliesTo(update, bot)).isTrue
     }
 
     @Test
     fun `should return true if starts with slash-command-at-bot-username`() {
         every { message.text() } returns "/command@TelestellaBot hamburger"
 
-        assertThat(predicate.test(update, bot)).isTrue
+        assertThat(predicate.appliesTo(update, bot)).isTrue
     }
 }

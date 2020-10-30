@@ -8,8 +8,8 @@ import dev.msmych.telestella.bot.Bot
  */
 abstract class TextMessagePredicate : IsTextMessagePredicate() {
 
-    override fun test(update: Update, bot: Bot): Boolean {
-        return super.test(update, bot) && checkText(update.message().text(), bot)
+    override fun appliesTo(update: Update, bot: Bot): Boolean {
+        return super.appliesTo(update, bot) && checkText(update.message().text(), bot)
     }
 
     abstract fun checkText(text: String, bot: Bot): Boolean

@@ -22,8 +22,8 @@ class RetryUpdatesListener(
         var lastProcessed = CONFIRMED_UPDATES_NONE
         for (update in updates) {
             try {
-                val processor = dispatcher.apply(update, bot)
-                processor.accept(update, bot)
+                val processor = dispatcher.dispatch(update, bot)
+                processor.process(update, bot)
             } catch (e: Exception) {
                 onError(e)
                 return lastProcessed

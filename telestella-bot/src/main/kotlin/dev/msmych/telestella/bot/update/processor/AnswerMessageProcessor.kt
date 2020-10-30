@@ -13,7 +13,7 @@ class AnswerMessageProcessor private constructor(
     private val keyboard: Keyboard? = null,
 ) : UpdateProcessor {
 
-    override fun accept(update: Update, bot: Bot) {
+    override fun process(update: Update, bot: Bot) {
         bot.answerMessage(update, text, silent = true, keyboard, MarkdownV2)
     }
 

@@ -15,8 +15,8 @@ class SingleProcessorUpdateDispatcher(private val config: Map<UpdatePredicate, U
 
     constructor(vararg config: Pair<UpdatePredicate, UpdateProcessor>) : this(config.toMap())
 
-    override fun apply(update: Update, bot: Bot): UpdateProcessor {
-        return config.filter { (p, _) -> p.test(update, bot) }
+    override fun dispatch(update: Update, bot: Bot): UpdateProcessor {
+        return config.filter { (p, _) -> p.appliesTo(update, bot) }
             .map { (_, p) -> p }
             .takeIf { it.size == 1 }
             ?.first()

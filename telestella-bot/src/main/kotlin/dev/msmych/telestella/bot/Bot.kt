@@ -1,7 +1,6 @@
 package dev.msmych.telestella.bot
 
 import com.pengrad.telegrambot.TelegramBot
-import com.pengrad.telegrambot.model.Update
 import com.pengrad.telegrambot.model.User
 import com.pengrad.telegrambot.model.request.Keyboard
 import com.pengrad.telegrambot.model.request.ParseMode
@@ -20,22 +19,22 @@ class Bot(token: String) : TelegramBot(token) {
     val info: User = execute(GetMe()).user()
 
     /**
-     * Executes [SendMessage] request with chatId equal the one where [update] message came from
+     * Executes [SendMessage] request
      */
-    fun answerMessage(
-        update: Update,
+    fun sendMessage(
+        chatId: Long,
         text: String,
         silent: Boolean? = null,
-        keyboard: Keyboard? = null,
+        markup: Keyboard? = null,
         parseMode: ParseMode? = null,
         noPreview: Boolean? = null
     ): SendResponse {
-        val rq = SendMessage(update.message().chat().id(), text)
+        val rq = SendMessage(chatId, text)
         if (silent != null) {
             rq.disableNotification(silent)
         }
-        if (keyboard != null) {
-            rq.replyMarkup(keyboard)
+        if (markup != null) {
+            rq.replyMarkup(markup)
         }
         if (parseMode != null) {
             rq.parseMode(parseMode)

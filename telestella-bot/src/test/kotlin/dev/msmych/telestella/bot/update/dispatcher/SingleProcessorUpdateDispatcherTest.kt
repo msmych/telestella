@@ -3,8 +3,8 @@ package dev.msmych.telestella.bot.update.dispatcher
 import com.pengrad.telegrambot.model.Update
 import dev.msmych.telestella.bot.Bot
 import dev.msmych.telestella.bot.update.predicate.UpdatePredicate
-import dev.msmych.telestella.bot.update.processor.NO_ACTION
 import dev.msmych.telestella.bot.update.processor.UpdateProcessor
+import dev.msmych.telestella.bot.update.processor.UpdateProcessor.Companion.NO_ACTION
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

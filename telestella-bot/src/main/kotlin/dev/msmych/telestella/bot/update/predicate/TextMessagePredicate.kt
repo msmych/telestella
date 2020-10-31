@@ -2,6 +2,8 @@ package dev.msmych.telestella.bot.update.predicate
 
 import com.pengrad.telegrambot.model.Update
 import dev.msmych.telestella.bot.Bot
+import dev.msmych.telestella.bot.update.predicate.UpdatePredicate.Companion.allApply
+import dev.msmych.telestella.bot.update.predicate.UpdatePredicate.Companion.anyApplies
 
 /**
  * Tests specified check on message text
@@ -22,9 +24,11 @@ abstract class TextMessagePredicate : IsTextMessagePredicate() {
          * Example:  `textOneOf("Ciao", "Hello", "Salut")` is true for `Ciao`, `Hello`, or `Hola`
          */
         fun text(vararg text: String, ignoreCase: Boolean = false) =
-            textThat { t ->
-                text.any { t.equals(it, ignoreCase) }
-            }
+            anyApplies(text.map {
+                textThat { t ->
+                    t.equals(it, ignoreCase)
+                }
+            })
 
         /**
          * Text contains one of check
@@ -32,9 +36,11 @@ abstract class TextMessagePredicate : IsTextMessagePredicate() {
          * Example: `textContains("rain", "snow")` is true for `Is it going to rain today?`
          */
         fun textContains(vararg text: String, ignoreCase: Boolean = false) =
-            textThat { t ->
-                text.any { t.contains(it, ignoreCase) }
-            }
+            anyApplies(text.map {
+                textThat { t ->
+                    t.contains(it, ignoreCase)
+                }
+            })
 
         /**
          * Text contains all of check
@@ -42,9 +48,11 @@ abstract class TextMessagePredicate : IsTextMessagePredicate() {
          * Example: `textContainsAll("Stock", "Barrel", "Lock")` is true for `Lock, Stock and Two Smoking Barrels`
          */
         fun textContainsAll(vararg text: String, ignoreCase: Boolean = false) =
-            textThat { t ->
-                text.all { t.contains(it, ignoreCase) }
-            }
+            allApply(text.map {
+                textThat { t ->
+                    t.contains(it, ignoreCase)
+                }
+            })
 
         /**
          * Regex check

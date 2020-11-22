@@ -21,10 +21,10 @@ abstract class TextMessagePredicate : IsTextMessagePredicate() {
         /**
          * Text equals one of check
          *
-         * Example:  `textOneOf("Ciao", "Hello", "Salut")` is true for `Ciao`, `Hello`, or `Hola`
+         * Example:  `text("Ciao", "Hello", "Salut")` is true for `Ciao`, `Hello`, or `Hola`
          */
-        fun text(vararg text: String, ignoreCase: Boolean = false) =
-            anyApplies(text.map {
+        fun text(vararg texts: String, ignoreCase: Boolean = false) =
+            anyApplies(texts.map {
                 textThat { t ->
                     t.equals(it, ignoreCase)
                 }
@@ -35,8 +35,8 @@ abstract class TextMessagePredicate : IsTextMessagePredicate() {
          *
          * Example: `textContains("rain", "snow")` is true for `Is it going to rain today?`
          */
-        fun textContains(vararg text: String, ignoreCase: Boolean = false) =
-            anyApplies(text.map {
+        fun textContains(vararg texts: String, ignoreCase: Boolean = false) =
+            anyApplies(texts.map {
                 textThat { t ->
                     t.contains(it, ignoreCase)
                 }
@@ -47,8 +47,8 @@ abstract class TextMessagePredicate : IsTextMessagePredicate() {
          *
          * Example: `textContainsAll("Stock", "Barrel", "Lock")` is true for `Lock, Stock and Two Smoking Barrels`
          */
-        fun textContainsAll(vararg text: String, ignoreCase: Boolean = false) =
-            allApply(text.map {
+        fun textContainsAll(vararg texts: String, ignoreCase: Boolean = false) =
+            allApply(texts.map {
                 textThat { t ->
                     t.contains(it, ignoreCase)
                 }

@@ -9,6 +9,6 @@ fun interface TextProvider {
 
     companion object {
 
-        fun String.textProvider(): TextProvider = TextProvider { _, _ -> this }
+        fun String.asTextProvider(vararg args: Any): TextProvider = TextProvider { _, _ -> format(args) }
     }
 }

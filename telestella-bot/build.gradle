@@ -34,6 +34,7 @@ publishing {
         maven {
             name = "GitHubPackages"
             url = "https://maven.pkg.github.com/msmych/telestella"
+            version = project.getProperty("version")
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")

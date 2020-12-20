@@ -72,4 +72,14 @@ internal class RetryUpdatesListenerTest {
 
         assertThat(rs).isEqualTo(CONFIRMED_UPDATES_NONE)
     }
+
+    @Test
+    fun `should apply pre-check`() {
+        val rs = RetryUpdatesListener(bot, dispatcher, preCheck = { _, _ -> false })
+            .process(listOf(u1, u2))
+
+        assertThat(rs).isEqualTo(CONFIRMED_UPDATES_ALL)
+        verify(exactly = 0) { p1.process(u1, bot) }
+        verify(exactly = 0) { p2.process(u2, bot) }
+    }
 }

@@ -59,7 +59,7 @@ abstract class TextMessagePredicate : IsTextMessagePredicate() {
          *
          * Example: `regex("[A-Z][a-z]+")` is true for `Robert`
          */
-        fun regex(pattern: String) = textThat { pattern.toRegex().matches(it) }
+        fun regex(pattern: String) = textThat { it.equals(pattern.toRegex()) }
 
         /**
          * Predicate check

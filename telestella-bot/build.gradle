@@ -27,7 +27,6 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifactId = "telestella-bot"
-            version = project.getProperty("version")
             from components.java
         }
     }

@@ -4,6 +4,7 @@ import com.pengrad.telegrambot.model.Message
 import com.pengrad.telegrambot.model.Update
 import dev.msmych.telestella.bot.Bot
 import dev.msmych.telestella.bot.update.predicate.IsTextMessagePredicate.Companion.IS_TEXT_MESSAGE
+import dev.msmych.telestella.bot.update.predicate.TextMessagePredicate.Companion.regex
 import io.mockk.every
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
@@ -34,5 +35,12 @@ internal class IsTextMessagePredicateTest {
         every { message.text() } returns null
 
         assertThat(IS_TEXT_MESSAGE.appliesTo(update, bot)).isFalse
+    }
+
+    @Test
+    fun `should return true for matching regex`() {
+        every { message.text() } returns "2020"
+
+        assertThat(regex("[0-9]{4}").appliesTo(update, bot)).isTrue()
     }
 }

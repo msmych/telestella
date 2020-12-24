@@ -19,6 +19,11 @@ open class AnswerMessageProcessor protected constructor(
 
         fun answer(text: String, markupProvider: MarkupProvider? = null) = answer(text.asTextProvider(), markupProvider)
 
+        fun answer(textAndMarkupProvider: TextAndMarkupProvider): AnswerMessageProcessor {
+            val textAndMarkup = TextAndMarkup(textAndMarkupProvider)
+            return answer({ u, b -> textAndMarkup.text(u, b) }, { u, b -> textAndMarkup.markup(u, b) })
+        }
+
         fun answer(
             textProvider: TextProvider,
             markupProvider: MarkupProvider? = null

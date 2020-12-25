@@ -5,9 +5,9 @@ import dev.msmych.telestella.bot.Bot
 /**
  * Checks weather a message is a bot command like `/start` or `/help@TeleStellaBot`
  */
-class CommandPredicate private constructor(private val command: String) : TextMessagePredicate() {
+class CommandPredicate private constructor(private val bot: Bot, private val command: String) : TextMessagePredicate() {
 
-    override fun checkText(text: String, bot: Bot): Boolean {
+    override fun checkText(text: String): Boolean {
         return text.startsWith("/$command") ||
                 text.startsWith("/$command@${bot.info.username()}")
     }
@@ -25,7 +25,8 @@ class CommandPredicate private constructor(private val command: String) : TextMe
          * /help@TeleStellaBot SOS
          * ```
          */
-        fun command(command: String) = CommandPredicate(
+        fun Bot.command(command: String) = CommandPredicate(
+            this,
             if (command.startsWith("/"))
                 command.substring(1)
             else command

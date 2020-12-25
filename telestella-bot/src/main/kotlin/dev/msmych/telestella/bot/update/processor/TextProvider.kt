@@ -1,14 +1,13 @@
 package dev.msmych.telestella.bot.update.processor
 
 import com.pengrad.telegrambot.model.Update
-import dev.msmych.telestella.bot.Bot
 
 fun interface TextProvider {
 
-    fun text(update: Update, bot: Bot): String
+    fun text(update: Update): String
 
     companion object {
 
-        fun String.asTextProvider(vararg args: Any): TextProvider = TextProvider { _, _ -> format(args) }
+        fun String.asTextProvider(vararg args: Any): TextProvider = TextProvider { format(args) }
     }
 }

@@ -4,7 +4,6 @@ import com.pengrad.telegrambot.UpdatesListener
 import com.pengrad.telegrambot.UpdatesListener.CONFIRMED_UPDATES_ALL
 import com.pengrad.telegrambot.UpdatesListener.CONFIRMED_UPDATES_NONE
 import com.pengrad.telegrambot.model.Update
-import dev.msmych.telestella.bot.Bot
 import dev.msmych.telestella.bot.update.dispatcher.UpdateDispatcher
 import dev.msmych.telestella.bot.update.predicate.UpdatePredicate
 
@@ -14,9 +13,8 @@ import dev.msmych.telestella.bot.update.predicate.UpdatePredicate
  * If dispatching or processing fails, returns last processed update id
  */
 class RetryUpdatesListener(
-    private val bot: Bot,
     private val dispatcher: UpdateDispatcher,
-    private val preCheck: UpdatePredicate = UpdatePredicate { _, _ -> true },
+    private val preCheck: UpdatePredicate = UpdatePredicate { true },
     private val onError: (e: Exception) -> Unit = {}
 ) : UpdatesListener {
 
@@ -24,9 +22,9 @@ class RetryUpdatesListener(
         var lastProcessed = CONFIRMED_UPDATES_NONE
         for (update in updates) {
             try {
-                if (preCheck.appliesTo(update, bot)) {
-                    val processor = dispatcher.dispatch(update, bot)
-                    processor.process(update, bot)
+                if (preCheck.appliesTo(update)) {
+                    val processor = dispatcher.dispatch(update)
+                    processor.process(update)
                 }
             } catch (e: Exception) {
                 onError(e)

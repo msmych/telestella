@@ -1,4 +1,4 @@
-package dev.msmych.telestella.bot.update.processor
+package dev.msmych.telestella.bot.update.text
 
 import com.pengrad.telegrambot.model.Update
 

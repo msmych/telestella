@@ -2,9 +2,13 @@ package dev.msmych.telestella.bot.update.processor
 
 import com.pengrad.telegrambot.model.request.Keyboard
 import dev.msmych.telestella.bot.Bot
-import dev.msmych.telestella.bot.update.processor.ChatIdProvider.Companion.MESSAGE_CHAT
-import dev.msmych.telestella.bot.update.processor.MarkupProvider.Companion.markup
-import dev.msmych.telestella.bot.update.processor.TextProvider.Companion.asTextProvider
+import dev.msmych.telestella.bot.update.TextAndMarkup
+import dev.msmych.telestella.bot.update.TextAndMarkupProvider
+import dev.msmych.telestella.bot.update.chat.ChatIdProvider.Companion.MESSAGE_CHAT
+import dev.msmych.telestella.bot.update.markup.MarkupProvider
+import dev.msmych.telestella.bot.update.markup.MarkupProvider.Companion.markup
+import dev.msmych.telestella.bot.update.text.TextProvider
+import dev.msmych.telestella.bot.update.text.TextProvider.Companion.asTextProvider
 
 /**
  * Sends message to the chat where given message came from

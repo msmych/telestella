@@ -1,4 +1,4 @@
-package dev.msmych.telestella.bot.update.processor
+package dev.msmych.telestella.bot.update
 
 import com.pengrad.telegrambot.model.Update
 import com.pengrad.telegrambot.model.request.Keyboard

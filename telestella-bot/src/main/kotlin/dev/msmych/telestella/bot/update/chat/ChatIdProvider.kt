@@ -1,7 +1,6 @@
-package dev.msmych.telestella.bot.update.processor
+package dev.msmych.telestella.bot.update.chat
 
 import com.pengrad.telegrambot.model.Update
-import dev.msmych.telestella.bot.update.messageChatId
 
 fun interface ChatIdProvider {
 
@@ -10,5 +9,7 @@ fun interface ChatIdProvider {
     companion object {
 
         val MESSAGE_CHAT: ChatIdProvider = ChatIdProvider { it.messageChatId() }
+
+        fun Update.messageChatId(): Long = message().chat().id()
     }
 }

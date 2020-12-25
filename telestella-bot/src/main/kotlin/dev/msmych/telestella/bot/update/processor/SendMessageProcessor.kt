@@ -3,6 +3,9 @@ package dev.msmych.telestella.bot.update.processor
 import com.pengrad.telegrambot.model.Update
 import com.pengrad.telegrambot.model.request.ParseMode.MarkdownV2
 import dev.msmych.telestella.bot.Bot
+import dev.msmych.telestella.bot.update.chat.ChatIdProvider
+import dev.msmych.telestella.bot.update.markup.MarkupProvider
+import dev.msmych.telestella.bot.update.text.TextProvider
 
 open class SendMessageProcessor protected constructor(
     private val bot: Bot,

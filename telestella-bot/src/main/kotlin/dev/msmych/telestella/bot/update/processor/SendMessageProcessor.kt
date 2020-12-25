@@ -3,19 +3,23 @@ package dev.msmych.telestella.bot.update.processor
 import com.pengrad.telegrambot.model.Update
 import com.pengrad.telegrambot.model.request.ParseMode.MarkdownV2
 import dev.msmych.telestella.bot.Bot
+import dev.msmych.telestella.bot.update.chat.ChatIdProvider
+import dev.msmych.telestella.bot.update.markup.MarkupProvider
+import dev.msmych.telestella.bot.update.text.TextProvider
 
 open class SendMessageProcessor protected constructor(
+    private val bot: Bot,
     private val chatIdProvider: ChatIdProvider,
     private val textProvider: TextProvider,
     private val markupProvider: MarkupProvider?
 ) : UpdateProcessor {
 
-    override fun process(update: Update, bot: Bot) {
+    override fun process(update: Update) {
         bot.sendMessage(
-            chatIdProvider.chatId(update, bot),
-            textProvider.text(update, bot),
+            chatIdProvider.chatId(update),
+            textProvider.text(update),
             silent = true,
-            markupProvider?.markup(update, bot),
+            markupProvider?.markup(update),
             MarkdownV2
         )
     }
@@ -23,9 +27,10 @@ open class SendMessageProcessor protected constructor(
     companion object {
 
         fun sendMessage(
+            bot: Bot,
             chatIdProvider: ChatIdProvider,
             textProvider: TextProvider,
             markupProvider: MarkupProvider?
-        ) = SendMessageProcessor(chatIdProvider, textProvider, markupProvider)
+        ) = SendMessageProcessor(bot, chatIdProvider, textProvider, markupProvider)
     }
 }

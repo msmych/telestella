@@ -1,7 +1,6 @@
 package dev.msmych.telestella.bot.update.predicate
 
 import com.pengrad.telegrambot.model.Update
-import dev.msmych.telestella.bot.Bot
 import dev.msmych.telestella.bot.update.predicate.UpdatePredicate.Companion.allApply
 import dev.msmych.telestella.bot.update.predicate.UpdatePredicate.Companion.anyApplies
 
@@ -10,11 +9,11 @@ import dev.msmych.telestella.bot.update.predicate.UpdatePredicate.Companion.anyA
  */
 abstract class TextMessagePredicate : IsTextMessagePredicate() {
 
-    override fun appliesTo(update: Update, bot: Bot): Boolean {
-        return super.appliesTo(update, bot) && checkText(update.message().text(), bot)
+    override fun appliesTo(update: Update): Boolean {
+        return super.appliesTo(update) && checkText(update.message().text())
     }
 
-    abstract fun checkText(text: String, bot: Bot): Boolean
+    abstract fun checkText(text: String): Boolean
 
     companion object {
 
@@ -67,7 +66,7 @@ abstract class TextMessagePredicate : IsTextMessagePredicate() {
          * Example: `textThat { it.endsWith("!") }` is true for `Cheers!`
          */
         fun textThat(predicate: (t: String) -> Boolean) = object : TextMessagePredicate() {
-            override fun checkText(text: String, bot: Bot): Boolean {
+            override fun checkText(text: String): Boolean {
                 return predicate(text)
             }
         }

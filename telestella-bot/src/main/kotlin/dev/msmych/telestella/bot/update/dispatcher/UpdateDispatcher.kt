@@ -1,10 +1,9 @@
 package dev.msmych.telestella.bot.update.dispatcher
 
 import com.pengrad.telegrambot.model.Update
-import dev.msmych.telestella.bot.Bot
 import dev.msmych.telestella.bot.update.processor.UpdateProcessor
 
-interface UpdateDispatcher {
+fun interface UpdateDispatcher {
 
-    fun dispatch(update: Update, bot: Bot): UpdateProcessor
+    fun dispatch(update: Update): UpdateProcessor
 }

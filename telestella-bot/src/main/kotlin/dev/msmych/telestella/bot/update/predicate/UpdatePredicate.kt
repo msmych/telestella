@@ -1,11 +1,10 @@
 package dev.msmych.telestella.bot.update.predicate
 
 import com.pengrad.telegrambot.model.Update
-import dev.msmych.telestella.bot.Bot
 
 fun interface UpdatePredicate {
 
-    fun appliesTo(update: Update, bot: Bot): Boolean
+    fun appliesTo(update: Update): Boolean
 
     companion object {
 
@@ -13,16 +12,16 @@ fun interface UpdatePredicate {
             allApply(predicates.toList())
 
         fun allApply(predicates: List<UpdatePredicate>): UpdatePredicate =
-            UpdatePredicate { u, b ->
-                predicates.all { it.appliesTo(u, b) }
+            UpdatePredicate { update ->
+                predicates.all { it.appliesTo(update) }
             }
 
         fun anyApplies(vararg predicates: UpdatePredicate): UpdatePredicate =
             anyApplies(predicates.toList())
 
         fun anyApplies(predicates: List<UpdatePredicate>): UpdatePredicate =
-            UpdatePredicate { u, b ->
-                predicates.any { it.appliesTo(u, b) }
+            UpdatePredicate { update ->
+                predicates.any { it.appliesTo(update) }
             }
     }
 }

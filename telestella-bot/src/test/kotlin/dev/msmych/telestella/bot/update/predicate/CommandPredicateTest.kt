@@ -14,7 +14,7 @@ internal class CommandPredicateTest {
 
     private val bot = mockk<Bot>()
 
-    private val predicate = command("command")
+    private val predicate = bot.command("command")
 
     private val update = mockk<Update>()
     private val message = mockk<Message>()
@@ -29,48 +29,48 @@ internal class CommandPredicateTest {
     fun `should return true for slash-command`() {
         every { message.text() } returns "/command"
 
-        assertThat(predicate.appliesTo(update, bot)).isTrue
+        assertThat(predicate.appliesTo(update)).isTrue
     }
 
     @Test
     fun `should return true for slash-command-at-bot-username`() {
         every { message.text() } returns "/command@TelestellaBot"
 
-        assertThat(predicate.appliesTo(update, bot)).isTrue
+        assertThat(predicate.appliesTo(update)).isTrue
     }
 
     @Test
     fun `should return false if not slash-command`() {
         every { message.text() } returns "command"
 
-        assertThat(predicate.appliesTo(update, bot)).isFalse
+        assertThat(predicate.appliesTo(update)).isFalse
     }
 
     @Test
     fun `should return false for wrong command`() {
         every { message.text() } returns "/wrong"
 
-        assertThat(predicate.appliesTo(update, bot)).isFalse
+        assertThat(predicate.appliesTo(update)).isFalse
     }
 
     @Test
     fun `should trim leading slash`() {
         every { message.text() } returns "/command"
 
-        assertThat(command("/command").appliesTo(update, bot)).isTrue
+        assertThat(predicate.appliesTo(update)).isTrue
     }
 
     @Test
     fun `should return true if starts with slash-command`() {
         every { message.text() } returns "/command A"
 
-        assertThat(predicate.appliesTo(update, bot)).isTrue
+        assertThat(predicate.appliesTo(update)).isTrue
     }
 
     @Test
     fun `should return true if starts with slash-command-at-bot-username`() {
         every { message.text() } returns "/command@TelestellaBot hamburger"
 
-        assertThat(predicate.appliesTo(update, bot)).isTrue
+        assertThat(predicate.appliesTo(update)).isTrue
     }
 }
